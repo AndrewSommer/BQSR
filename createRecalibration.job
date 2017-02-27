@@ -1,0 +1,22 @@
+#!/bin/bash
+##
+#$ -S /bin/bash
+#$ -pe smp 16
+#$ -q COE,UI,all.q
+#$ -j y
+#$ -cwd
+#$ -M steven-sommer@uiowa.edu
+#$ -m aes
+#$ -N createRecalibration_HW_BQSR
+#$ -o createRecalibration_HW_BQSR.log
+#$ -ckpt user
+#$ -l std_mem
+
+date
+module load jdk/8u92
+java -jar ~/workspace/dna/tools/GenomeAnalysisTK.jar \
+ -T PrintReads \
+ -R ~/workspace/dna/refs/bundle/hg38/Homo_sapiens_assembly38.fasta \
+ -I ~/workspace/dna/alignments/SRR2102532.sorted.md.ra.bam \
+ -BQSR ~/workspace/dna/data/SRR2102532.recal_data.table \
+ -o ~/workspace/dna/alignments/SRR2102532.sorted.md.ra.bqsr.bam

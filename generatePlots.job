@@ -1,0 +1,33 @@
+#!/bin/bash
+##
+#$ -S /bin/bash
+#$ -pe smp 16
+#$ -q COE,UI,all.q
+#$ -j y
+#$ -cwd
+#$ -M steven-sommer@uiowa.edu
+#$ -m aes
+#$ -N generatePlots_HW_BQSR
+#$ -o generatePlots_HW_BQSR.log
+#$ -ckpt user
+#$ -l std_mem
+
+##module load R/3.1.2
+##java -jar ~/workspace/dna/tools/GenomeAnalysisTK.jar \
+##-T AnalyzeCovariates \
+##-R ~/workspace/dna/refs/bundle/hg38/Homo_sapiens_assembly38.fasta \
+##-before ~/workspace/dna/data/SRR2102532.recal_data.table \
+##-after  ~/workspace/dna/data/SRR2102532.after_recal.table \
+##-csv ~/workspace/dna/data/SRR2102532.my_BQSR.report.csv \
+##-plots ~/workspace/dna/data/SRR2102532.recal_plots.pdf
+
+module load jdk/8u92
+
+date
+java -jar ~/workspace/dna/tools/GenomeAnalysisTK.jar \
+ -T AnalyzeCovariates \
+ -R ~/workspace/dna/refs/bundle/hg38/Homo_sapiens_assembly38.fasta \
+ -before ~/workspace/dna/data/SRR2102532.recal_data.table \
+ -after  ~/workspace/dna/data/SRR2102532.after_recal.table \
+ -csv ~/workspace/dna/data/SRR2102532.my_BQSR.report.csv
+date
